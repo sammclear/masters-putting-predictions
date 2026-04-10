@@ -68,17 +68,25 @@ def analyze_actual_putting_data(excel_path):
         # Total putts for all players
         total_putts = sum(round1_clean) * 18
         
-        # Min and max
+        # Min and max with player names
         min_putts_per_hole = min(round1_clean)
         max_putts_per_hole = max(round1_clean)
         min_putts_total = min_putts_per_hole * 18
         max_putts_total = max_putts_per_hole * 18
         
+        # Find player names for best and worst
+        min_idx = round1_clean.index(min_putts_per_hole)
+        max_idx = round1_clean.index(max_putts_per_hole)
+        
+        # Get player names (clean up URLs)
+        best_player = df['Player'].iloc[min_idx].split(' (')[0] if '(' in str(df['Player'].iloc[min_idx]) else df['Player'].iloc[min_idx]
+        worst_player = df['Player'].iloc[max_idx].split(' (')[0] if '(' in str(df['Player'].iloc[max_idx]) else df['Player'].iloc[max_idx]
+        
         print(f"\nAverage putts per hole: {avg_putts_per_hole:.4f}")
         print(f"Average putts per player (18 holes): {avg_putts_per_player:.2f}")
         print(f"Total putts (all {len(round1_clean)} players): {total_putts:,.0f}")
-        print(f"\nBest performance: {min_putts_per_hole:.2f} putts/hole = {min_putts_total:.0f} total putts")
-        print(f"Worst performance: {max_putts_per_hole:.2f} putts/hole = {max_putts_total:.0f} total putts")
+        print(f"\nBest performance: {best_player} - {min_putts_per_hole:.2f} putts/hole = {min_putts_total:.0f} total putts")
+        print(f"Worst performance: {worst_player} - {max_putts_per_hole:.2f} putts/hole = {max_putts_total:.0f} total putts")
         
         # Comparison with predictions
         print("\n" + "=" * 70)
@@ -166,7 +174,9 @@ def analyze_actual_putting_data(excel_path):
                 'avg_putts_per_hole': float(avg_putts_per_hole),
                 'field_size': int(len(round1_clean)),
                 'min_putts': float(min_putts_total),
-                'max_putts': float(max_putts_total)
+                'max_putts': float(max_putts_total),
+                'best_player': best_player,
+                'worst_player': worst_player
             },
             'comparison': {
                 'total_putts_diff': float(diff_total),

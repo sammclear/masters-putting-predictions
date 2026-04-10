@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-04-10T15:35:08.570107",
+  "timestamp": "2026-04-10T15:55:30.875155",
   "predicted": {
     "total_putts": 2684,
     "field_size": 91,
@@ -11,7 +11,9 @@
     "avg_putts_per_hole": 1.6815384615384616,
     "field_size": 91,
     "min_putts": 21.96,
-    "max_putts": 37.08
+    "max_putts": 37.08,
+    "best_player": "Jos\u00e9 Mar\u00eda Olaz\u00e1bal",
+    "worst_player": "Aldrich Potgieter"
   },
   "comparison": {
     "total_putts_diff": 70.36000000000013,

@@ -356,23 +356,28 @@
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-label">Total Putts</div>
-                    <div class="stat-value">2,685</div>
+                    <div class="stat-value">2,754</div>
+                    <div style="font-size: 0.8em; color: #90EE90; margin-top: 5px;">Actual (Predicted: 2,685)</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-label">Field Size</div>
                     <div class="stat-value">91</div>
+                    <div style="font-size: 0.8em; color: #90EE90; margin-top: 5px;">Perfect Match ✓</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-label">Avg Putts/Player</div>
-                    <div class="stat-value">29.5</div>
+                    <div class="stat-value">30.27</div>
+                    <div style="font-size: 0.8em; color: #90EE90; margin-top: 5px;">Actual (Predicted: 29.5)</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-label">Expected Low</div>
-                    <div class="stat-value">25</div>
+                    <div class="stat-label">Best Performance</div>
+                    <div class="stat-value">22</div>
+                    <div style="font-size: 0.8em; color: #90EE90; margin-top: 5px;">Actual (Expected: 25)</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-label">Expected High</div>
-                    <div class="stat-value">35</div>
+                    <div class="stat-label">Worst Performance</div>
+                    <div class="stat-value">37</div>
+                    <div style="font-size: 0.8em; color: #90EE90; margin-top: 5px;">Actual (Expected: 35)</div>
                 </div>
             </div>
 
@@ -587,7 +592,71 @@
 
         <!-- Comparison Content -->
         <div id="comparison" class="tab-content">
-            <div class="comparison-section">
+            <!-- Actual vs Predicted Section -->
+            <div class="comparison-section" style="background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(0, 100, 0, 0.15) 100%);">
+                <div class="comparison-title">📊 Day 1 Actual vs Predicted Results</div>
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <div style="font-size: 3em; font-weight: bold; color: #ffd700; margin: 20px 0;">
+                        97.39% Accuracy
+                    </div>
+                    <div style="font-size: 1.5em; color: #90EE90;">
+                        ⭐ EXCELLENT Prediction Rating
+                    </div>
+                </div>
+
+                <div class="stats-grid" style="margin-bottom: 30px;">
+                    <div class="stat-card" style="background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 215, 0, 0.05) 100%);">
+                        <div class="stat-label">Total Putts</div>
+                        <div class="stat-value" style="font-size: 2em;">2,754</div>
+                        <div style="color: #90EE90; margin-top: 10px;">Predicted: 2,684</div>
+                        <div style="color: #FFD700; font-size: 0.9em;">+70 putts (+2.62%)</div>
+                    </div>
+                    <div class="stat-card" style="background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 215, 0, 0.05) 100%);">
+                        <div class="stat-label">Avg Putts/Player</div>
+                        <div class="stat-value" style="font-size: 2em;">30.27</div>
+                        <div style="color: #90EE90; margin-top: 10px;">Predicted: 29.50</div>
+                        <div style="color: #FFD700; font-size: 0.9em;">+0.77 putts (+2.60%)</div>
+                    </div>
+                    <div class="stat-card" style="background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 215, 0, 0.05) 100%);">
+                        <div class="stat-label">Field Size</div>
+                        <div class="stat-value" style="font-size: 2em;">91</div>
+                        <div style="color: #90EE90; margin-top: 10px;">Predicted: 91</div>
+                        <div style="color: #FFD700; font-size: 0.9em;">Perfect Match! ✓</div>
+                    </div>
+                    <div class="stat-card" style="background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 215, 0, 0.05) 100%);">
+                        <div class="stat-label">Best Performance</div>
+                        <div class="stat-value" style="font-size: 2em;">22</div>
+                        <div style="color: #90EE90; margin-top: 10px;">Predicted: 25</div>
+                        <div style="color: #FFD700; font-size: 0.9em;">1.22 putts/hole</div>
+                    </div>
+                    <div class="stat-card" style="background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 215, 0, 0.05) 100%);">
+                        <div class="stat-label">Worst Performance</div>
+                        <div class="stat-value" style="font-size: 2em;">37</div>
+                        <div style="color: #90EE90; margin-top: 10px;">Predicted: 35</div>
+                        <div style="color: #FFD700; font-size: 0.9em;">2.06 putts/hole</div>
+                    </div>
+                </div>
+
+                <div class="chart-card" style="margin-top: 20px;">
+                    <div class="chart-title">Predicted vs Actual Comparison</div>
+                    <canvas id="actualVsPredictedChart"></canvas>
+                </div>
+
+                <div style="background: rgba(0, 0, 0, 0.3); padding: 20px; border-radius: 10px; margin-top: 30px;">
+                    <h3 style="color: #ffd700; margin-bottom: 15px;">📈 Analysis Summary</h3>
+                    <div style="line-height: 1.8;">
+                        <p>✓ <strong>Total Putts:</strong> Within 100 putts - VERY GOOD prediction!</p>
+                        <p>✓ <strong>Average per Player:</strong> Within 1 putt - EXCELLENT accuracy!</p>
+                        <p>✓ <strong>Overall Accuracy:</strong> 97.39% - Highly accurate prediction</p>
+                        <p style="margin-top: 15px; color: #90EE90;">
+                            <em>Note: Values in Excel represent putts per hole. Numbers in brackets (e.g., "1.50 (1)") indicate three-putts, which are already included in the average.</em>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tournament Progression Section -->
+            <div class="comparison-section" style="margin-top: 30px;">
                 <div class="comparison-title">Tournament Progression</div>
                 <div class="chart-card" style="margin-top: 20px;">
                     <div class="chart-title">Total Putts by Day</div>
@@ -863,6 +932,64 @@
                 plugins: { legend: { position: 'bottom' } }
             }
         });
+        // Actual vs Predicted Chart
+        new Chart(document.getElementById('actualVsPredictedChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Total Putts', 'Avg Putts/Player', 'Best Performance', 'Worst Performance'],
+                datasets: [{
+                    label: 'Predicted',
+                    data: [2684, 29.5, 25, 35],
+                    backgroundColor: 'rgba(255, 215, 0, 0.6)',
+                    borderColor: 'rgba(255, 215, 0, 1)',
+                    borderWidth: 2
+                }, {
+                    label: 'Actual',
+                    data: [2754, 30.27, 22, 37],
+                    backgroundColor: 'rgba(34, 139, 34, 0.6)',
+                    borderColor: 'rgba(34, 139, 34, 1)',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { 
+                        display: true,
+                        position: 'top'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.y !== null) {
+                                    if (context.dataIndex === 0) {
+                                        label += context.parsed.y.toLocaleString() + ' putts';
+                                    } else {
+                                        label += context.parsed.y.toFixed(2) + ' putts';
+                                    }
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: { 
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value.toLocaleString();
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
 
         // Comparison Charts
         new Chart(document.getElementById('comparisonChart'), {

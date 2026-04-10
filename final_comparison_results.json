@@ -1,0 +1,26 @@
+{
+  "timestamp": "2026-04-10T15:35:08.570107",
+  "predicted": {
+    "total_putts": 2684,
+    "field_size": 91,
+    "avg_putts_per_player": 29.5
+  },
+  "actual": {
+    "total_putts": 2754.36,
+    "avg_putts_per_player": 30.26769230769231,
+    "avg_putts_per_hole": 1.6815384615384616,
+    "field_size": 91,
+    "min_putts": 21.96,
+    "max_putts": 37.08
+  },
+  "comparison": {
+    "total_putts_diff": 70.36000000000013,
+    "total_putts_diff_percent": 2.621460506706413,
+    "avg_putts_diff": 0.767692307692311,
+    "avg_putts_diff_percent": 2.6023468057366475,
+    "accuracy_total": 97.37853949329359,
+    "accuracy_avg": 97.39765319426336,
+    "overall_accuracy": 97.38809634377847,
+    "rating": "EXCELLENT"
+  }
+}

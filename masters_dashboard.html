@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masters Day 1 - Putting Predictions Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a4d0a 0%, #1a5c1a 100%);
+            color: #fff;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 0;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            color: #ffd700;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: #e0e0e0;
+            margin-top: 10px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-value {
+            font-size: 3em;
+            font-weight: bold;
+            color: #ffd700;
+            margin: 10px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-label {
+            font-size: 1.1em;
+            color: #e0e0e0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .charts-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .chart-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .chart-title {
+            color: #0a4d0a;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .factors-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .factors-title {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #ffd700;
+            text-align: center;
+        }
+
+        .factors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .factor-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #ffd700;
+        }
+
+        .factor-number {
+            font-size: 2em;
+            color: #ffd700;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .factor-text {
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        .performance-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .performance-title {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #ffd700;
+            text-align: center;
+        }
+
+        .performance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .performance-card {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 215, 0, 0.05) 100%);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .performance-type {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #ffd700;
+        }
+
+        .performance-value {
+            font-size: 2em;
+            color: #fff;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #e0e0e0;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .charts-container {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-value {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏌️ THE MASTERS</h1>
+            <div class="subtitle">Day 1 Putting Predictions Dashboard</div>
+            <div class="subtitle" style="font-size: 0.9em; margin-top: 5px;">Augusta National Golf Club</div>
+        </header>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Total Putts Predicted</div>
+                <div class="stat-value">2,655</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Field Size</div>
+                <div class="stat-value">90</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Avg Putts/Player</div>
+                <div class="stat-value">29.5</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Holes per Round</div>
+                <div class="stat-value">18</div>
+            </div>
+        </div>
+
+        <div class="charts-container">
+            <div class="chart-card">
+                <div class="chart-title">Putt Distribution by Distance</div>
+                <canvas id="distanceChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <div class="chart-title">Percentage Breakdown</div>
+                <canvas id="percentageChart"></canvas>
+            </div>
+        </div>
+
+        <div class="performance-section">
+            <div class="performance-title">Expected Performance Ranges</div>
+            <div class="performance-grid">
+                <div class="performance-card">
+                    <div class="performance-type">🏆 Best Round</div>
+                    <div class="performance-value">25-26</div>
+                    <div style="margin-top: 10px; font-size: 0.9em;">putts</div>
+                </div>
+                <div class="performance-card">
+                    <div class="performance-type">📊 Average Round</div>
+                    <div class="performance-value">29-30</div>
+                    <div style="margin-top: 10px; font-size: 0.9em;">putts</div>
+                </div>
+                <div class="performance-card">
+                    <div class="performance-type">⚠️ Challenging Round</div>
+                    <div class="performance-value">32-34</div>
+                    <div style="margin-top: 10px; font-size: 0.9em;">putts</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="factors-section">
+            <div class="factors-title">Key Factors Affecting Day 1 Putting</div>
+            <div class="factors-grid">
+                <div class="factor-item">
+                    <div class="factor-number">1</div>
+                    <div class="factor-text">Green speed and firmness at Augusta National's notoriously fast greens</div>
+                </div>
+                <div class="factor-item">
+                    <div class="factor-number">2</div>
+                    <div class="factor-text">Pin positions (typically moderate on Day 1 to ease players in)</div>
+                </div>
+                <div class="factor-item">
+                    <div class="factor-number">3</div>
+                    <div class="factor-text">Weather conditions including wind and temperature</div>
+                </div>
+                <div class="factor-item">
+                    <div class="factor-number">4</div>
+                    <div class="factor-text">Course setup and rough height around the greens</div>
+                </div>
+                <div class="factor-item">
+                    <div class="factor-number">5</div>
+                    <div class="factor-text">Player field strength and experience at Augusta</div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Data generated: April 9, 2026 | Based on historical Masters statistics</p>
+            <p style="margin-top: 10px;">Augusta National Golf Club | The Masters Tournament</p>
+        </footer>
+    </div>
+
+    <script>
+        // Putt Distribution Chart
+        const distanceCtx = document.getElementById('distanceChart').getContext('2d');
+        new Chart(distanceCtx, {
+            type: 'bar',
+            data: {
+                labels: ['0-5 feet', '5-10 feet', '10-20 feet', '20+ feet'],
+                datasets: [{
+                    label: 'Number of Putts',
+                    data: [720, 540, 900, 495],
+                    backgroundColor: [
+                        'rgba(255, 215, 0, 0.8)',
+                        'rgba(34, 139, 34, 0.8)',
+                        'rgba(0, 100, 0, 0.8)',
+                        'rgba(0, 50, 0, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 215, 0, 1)',
+                        'rgba(34, 139, 34, 1)',
+                        'rgba(0, 100, 0, 1)',
+                        'rgba(0, 50, 0, 1)'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.parsed.y + ' putts';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            font: {
+                                size: 12
+                            }
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            font: {
+                                size: 12
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Percentage Chart
+        const percentageCtx = document.getElementById('percentageChart').getContext('2d');
+        new Chart(percentageCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['0-5 feet', '5-10 feet', '10-20 feet', '20+ feet'],
+                datasets: [{
+                    data: [720, 540, 900, 495],
+                    backgroundColor: [
+                        'rgba(255, 215, 0, 0.8)',
+                        'rgba(34, 139, 34, 0.8)',
+                        'rgba(0, 100, 0, 0.8)',
+                        'rgba(0, 50, 0, 0.8)'
+                    ],
+                    borderColor: '#fff',
+                    borderWidth: 3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: {
+                                size: 14
+                            },
+                            padding: 15
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                const percentage = ((context.parsed / total) * 100).toFixed(1);
+                                return context.label + ': ' + context.parsed + ' putts (' + percentage + '%)';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
